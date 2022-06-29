@@ -6,7 +6,9 @@ function App() {
 
     const [mouseEvent, setMouseEvent] = useState(false);
 
-    const [name, setName] = useState("");
+    const [fname, setFName] = useState("");
+
+    const [lname, setLName] = useState("");
 
     const [headingName, setHeading] = useState('');
 
@@ -18,23 +20,31 @@ function App() {
         setMouseEvent(false);
     }
 
-    function handleChange(event){
-        setName(event.target.value);
+    function handleChangeF(event){
+        setFName(event.target.value);
+    }
+
+    function handleChangeL(event){
+        setLName(event.target.value);
     }
 
     function handleClick (event) {
-        setHeading(name);
+        setHeading(fname + " " + lname);
+
+        event.preventDefault();
     }
 
     return (
         <div className="container">
             <h1> {headingText} {headingName} </h1>
-            <input type="text" placeholder="what is your name?" value={name} onChange={handleChange} />
+            <form onSubmit={handleClick}>
+            <input type="text" placeholder="what is your first name?" value={fname} onChange={handleChangeF} />
+            <input type="text" placeholder="what is your last name?" value={lname} onChange={handleChangeL} />
             <button onMouseOver={handleMouseOver}
                     style={{backgroundColor: mouseEvent ? "black" : "white"}}
                     onMouseOut={handleMouseOut}
-                    onClick={handleClick}
             >Submit</button>
+            </form>
         </div>
     );
 }

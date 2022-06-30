@@ -6,9 +6,11 @@ function App() {
 
     const [mouseEvent, setMouseEvent] = useState(false);
 
-    const [fname, setFName] = useState("");
+    const [fullName, setFullName] = useState({
+        fName: "",
+        lName: ""
+    });
 
-    const [lname, setLName] = useState("");
 
     const [headingName, setHeading] = useState('');
 
@@ -20,34 +22,51 @@ function App() {
         setMouseEvent(false);
     }
 
-    function handleChangeF(event){
-        setFName(event.target.value);
-    }
-
-    function handleChangeL(event){
-        setLName(event.target.value);
+    function handleChange (event) {
+        const newValue = event.target.value;
+        const inputName = event.target.name;
+        setFullName(prevValue => {
+            if (inputName === "fName") {
+                return {
+                    fName: newValue,
+                    lName: prevValue.lName
+                };
+            } else if (inputName === "lName") {
+                return {
+                    fName: prevValue.fName,
+                    lName: newValue
+                };
+            }
+        })
     }
 
     function handleClick (event) {
-        setHeading(fname + " " + lname);
-
         event.preventDefault();
     }
 
     return (
         <div className="container">
-            <h1> {headingText} {headingName} </h1>
+            <h1> {headingText} {fullName.fName} {fullName.lName} </h1>
             <form onSubmit={handleClick}>
-            <input type="text" placeholder="what is your first name?" value={fname} onChange={handleChangeF} />
-            <input type="text" placeholder="what is your last name?" value={lname} onChange={handleChangeL} />
+            <input name="fName"
+                   type="text"
+                   placeholder="what is your first name?"
+                   value={fullName.fName}
+                   onChange={handleChange} />
+
+            <input name="lName"
+                   type="text"
+                   placeholder="what is your last name?"
+                   value={fullName.lName}
+                   onChange={handleChange} />
+
             <button onMouseOver={handleMouseOver}
                     style={{backgroundColor: mouseEvent ? "black" : "white"}}
-                    onMouseOut={handleMouseOut}
-            >Submit</button>
+                    onMouseOut={handleMouseOut}>
+                Submit</button>
             </form>
         </div>
     );
 }
-
 
 export default App;

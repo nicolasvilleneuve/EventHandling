@@ -21,26 +21,26 @@ function App() {
         setMouseEvent(false);
     }
 
-    function handleChange (event) {
+    function handleClick (event) {
+        event.preventDefault();
+    }
+
+    function handleChange(event){
         const {value, name} = event.target;
 
-        setFullName(prevValue => {
+        setFullName(x => {
             if (name === "fName") {
                 return {
                     fName: value,
-                    lName: prevValue.lName
+                    lName: x.lName
                 };
             } else if (name === "lName") {
                 return {
-                    fName: prevValue.fName,
+                    fName: x.fName,
                     lName: value
                 };
             }
         })
-    }
-
-    function handleClick (event) {
-        event.preventDefault();
     }
 
     return (

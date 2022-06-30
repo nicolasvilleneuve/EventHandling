@@ -22,23 +22,16 @@ function App() {
     }
 
     function handleClick (event) {
-        event.preventDefault();
+        alert("Form has been submitted!");
     }
 
     function handleChange(event){
         const {value, name} = event.target;
 
         setFullName(x => {
-            if (name === "fName") {
-                return {
-                    fName: value,
-                    lName: x.lName
-                };
-            } else if (name === "lName") {
-                return {
-                    fName: x.fName,
-                    lName: value
-                };
+            return {
+                ...x,
+                [name]: value
             }
         })
     }
